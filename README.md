@@ -1,5 +1,21 @@
 # typer.js
 
+- [Using typer.js](#using-typerjs)
+  - [Import and instantiate](#import-and-instantiate)
+  - [Basic usage](#basic-usage)
+  - [Advanced usage](#advanced-usage)
+- [Typer Overview](#typer-overview)
+  - [Functions](#functions)
+    - [Constructor](#typerhtmlelement-options)
+    - [`render()`](#render)
+    - [`type(content)`](#typecontent)
+    - [`flush()`](#flush)
+    - [`hide()`](#hide)
+    - [`show()`](#show)
+  - [Data Structures](#data-structures)
+    - [`message`](#message)
+    - [`screen`](#screen)
+
 ## Using `typer.js`
 
 ### Import and instantiate
@@ -83,16 +99,50 @@ typerObj.render();
 typerObj.type(textScreens);
 ```
 
-## Overview
+## Typer Overview
+
+### Functions
 
 |                    Method | Description                                                                                   |
 |--------------------------:|-----------------------------------------------------------------------------------------------|
-| `Typer(Element, options)` | Constructor, requires an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)                                                                                   |
+| `Typer(HTMLElement, options)` | Constructor, requires an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)                                                                                   |
 |                `render()` | Render the typer container on the page (cursor will appear even before `type()` isn't called) |
 |           `type(content)` | Adds `content` to the queue (will be typed when ready)                                       |
 |                 `flush()` | Flush screen                                                                                  |
 |                  `hide()` | Hide the typer's container `Element`                                                          |
 |                  `show()` | Show the typer's container `Element`                                                          |
+
+#### `Typer(HTMLElement, options)`
+A simplified Typer object that can write screens of text to a given container element.
+
+##### Parameters
+- `HTMLElement` A valid [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) (i.e., a `p`)
+- `options` An optional JSON including options. See the default `options` object below.
+  ```json
+  {
+    "cursorChar": "|",
+    "speed": 60,
+    "refreshTimeMs": 250,
+    "defaultPauseTimeMs": 200,
+    "defaultScreenPauseTimeMs": 1000
+  }
+  ```
+
+#### `render()`
+Render the typer container on the page
+
+#### `type(content)`
+Adds `content` to the queue (will be typed when ready). \
+Also starts an interval that watches the queue
+
+#### `flush()`
+Flush (clear) the screen
+
+#### `hide()`
+Hide the typer (typing area) element
+
+#### `show()`
+Show the typer (typing area) element
 
 ### Data Structures
 #### `message`
@@ -122,6 +172,7 @@ A screen is a JSON object that includes the following properties
 
 ##### Example
 ```json
+{
   "messages": [
     {
       "data": "Hello, world",
@@ -129,7 +180,7 @@ A screen is a JSON object that includes the following properties
     }
   ],
   "pauseMs": 5000,
-  "onDoneCallback": changeColorToRed
+  "onDoneCallback": "changeColorToRed"
 }
 ```
 
