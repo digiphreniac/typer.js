@@ -1,5 +1,7 @@
 # typer.js
 
+A smart typer object that makes it easy to queue messages and groups of messages for a precise user experience.
+
 - [Using typer.js](#using-typerjs)
   - [Import and instantiate](#import-and-instantiate)
   - [Basic usage](#basic-usage)
@@ -132,7 +134,7 @@ A simplified Typer object that can write screens of text to a given container el
 Render the typer container on the page
 
 #### `type(content)`
-Adds `content` to the queue (will be typed when ready). \
+Adds `content` (a list of [`screen`](#screen) objects) to the queue that will be typed when ready. \
 Also starts an interval that watches the queue
 
 #### `flush()`
@@ -148,10 +150,10 @@ Show the typer (typing area) element
 #### `message`
 A message is a JSON object representing text. The properties for a `message` object are described below.
 
-| property | description |
-| -------: | ----------- |
-| `data` | The text to be written |
-| `pauseMs` | The duration (in milliseconds) to pause after `data` is written (before the typer will continue onto its next task) | 
+| property | required | description |
+| -------: | --- | ----------- |
+| `data` | ✅| The text to be written |
+| `pauseMs` | | The duration (in milliseconds) to pause after `data` is written (before the typer will continue onto its next task) | 
 
 ##### Example
 ```json
@@ -196,7 +198,6 @@ const changeColorToRed = (unlockCallback) => {
 
 const screen = {
   "messages": [ { "data": "Hello, world" } ],
-  "pauseMs": 5000,
   "onDoneCallback": changeColorToRed
 }
 ```
